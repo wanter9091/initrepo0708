@@ -42,5 +42,6 @@ pipeline {
         failure {
             echo "❌ 배포 실패!"
         }
+        
     }
 }
