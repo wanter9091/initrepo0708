@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "react-app"
-        CONTAINER_NAME = "react-app-container"
-        PORT = "80"
+        FRONT_IMAGE = "react-app"
+        FRONT_CONTAINER = "react-app-container"
+        FRONT_PORT = "80"
         BACK_IMAGE = "fastapi-app"
         BACK_CONTAINER = "fastapi-app-container"
         BACK_PORT = "8000"
