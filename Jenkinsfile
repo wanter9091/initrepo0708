@@ -32,6 +32,7 @@ pipeline {
                 echo "✅ 현재 실행 중인 컨테이너 목록:"
                 sh "docker ps"
             }
+            
         }
     }
 
