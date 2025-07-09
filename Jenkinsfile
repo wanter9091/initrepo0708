@@ -7,7 +7,7 @@ pipeline {
         FRONT_PORT = "80"
         BACK_IMAGE = "fastapi-app"
         BACK_CONTAINER = "fastapi-app-container"
-        BACK_PORT = "8000"
+        BACK_PORT = "8080"
     }
 
     stages {
