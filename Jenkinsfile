@@ -7,7 +7,7 @@ pipeline {
         FRONT_PORT = "80"
         BACK_IMAGE = "fastapi-app"
         BACK_CONTAINER = "fastapi-app-container"
-        BACK_PORT = "8080"
+        BACK_PORT = "8000"
     }
 
     stages {
@@ -39,7 +39,7 @@ pipeline {
                 sh "docker rm -f $BACK_CONTAINER || true"
 
                 sh "docker run -d -p ${FRONT_PORT}:80 --name $FRONT_CONTAINER $FRONT_IMAGE"
-                sh "docker run -d -p ${BACK_PORT}:8080 --name $BACK_CONTAINER $BACK_IMAGE"
+                sh "docker run -d -p ${BACK_PORT}:8000 --name $BACK_CONTAINER $BACK_IMAGE"
             }
         }
 
