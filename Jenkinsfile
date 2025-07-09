@@ -5,6 +5,9 @@ pipeline {
         IMAGE_NAME = "react-app"
         CONTAINER_NAME = "react-app-container"
         PORT = "80"
+        BACK_IMAGE = "fastapi-app"
+        BACK_CONTAINER = "fastapi-app-container"
+        BACK_PORT = "8000"
     }
 
     stages {
@@ -14,16 +17,29 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Frontend Docker Image') {
             steps {
-                sh "docker build -t $IMAGE_NAME ."
+                dir('frontend') {
+                    sh "docker build -t $FRONT_IMAGE ."
+                }
             }
         }
 
-        stage('Deploy') {
+        stage('Build Backend Docker Image') {
             steps {
-                sh "docker rm -f $CONTAINER_NAME || true"
-                sh "docker run -d -p ${PORT}:80 --name $CONTAINER_NAME $IMAGE_NAME"
+                dir('backend') {
+                    sh "docker build -t $BACK_IMAGE ."
+                }
+            }
+        }
+
+        stage('Deploy Containers') {
+            steps {
+                sh "docker rm -f $FRONT_CONTAINER || true"
+                sh "docker rm -f $BACK_CONTAINER || true"
+
+                sh "docker run -d -p ${FRONT_PORT}:80 --name $FRONT_CONTAINER $FRONT_IMAGE"
+                sh "docker run -d -p ${BACK_PORT}:8000 --name $BACK_CONTAINER $BACK_IMAGE"
             }
         }
 
@@ -32,7 +48,7 @@ pipeline {
                 echo "✅ 현재 실행 중인 컨테이너 목록:"
                 sh "docker ps"
             }
-            
+
         }
     }
 
